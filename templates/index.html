@@ -10,13 +10,19 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <!-- Мобильная кнопка меню -->
+    <!-- Только одна кнопка меню (плавающая) -->
     <button class="mobile-menu-toggle" id="mobileMenuToggle">
         <i class="fas fa-bars"></i>
     </button>
 
+    <!-- Кнопка скрытия/показа вопросов -->
+    <button class="toggle-questions-btn" id="toggleQuestionsBtn">
+        <i class="fas fa-chevron-up"></i>
+        <span class="toggle-text">Скрыть</span>
+    </button>
+
     <div class="app">
-        <!-- Sidebar с брендингом -->
+        <!-- Sidebar -->
         <aside class="sidebar" id="sidebar">
             <div>
                 <div class="logo">
@@ -76,11 +82,6 @@
                 <div class="header-content">
                     <h1>Найдите свой стиль</h1>
                     <p>Ответьте на 5 вопросов — получите персонализированную стратегию дизайна</p>
-                </div>
-                <div class="header-actions">
-                    <button class="menu-toggle" id="menuToggle">
-                        <i class="fas fa-bars"></i>
-                    </button>
                 </div>
             </div>
 

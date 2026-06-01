@@ -782,3 +782,67 @@ body.dark-theme .theme-toggle .toggle-slider {
         font-size: 11px;
     }
 }
+
+/* Кнопка скрытия/показа вопросов */
+.toggle-questions-btn {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: var(--accent-primary);
+    border: none;
+    border-radius: 40px;
+    padding: 12px 20px;
+    cursor: pointer;
+    z-index: 1000;
+    box-shadow: var(--shadow-lg);
+    transition: all 0.3s ease;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.toggle-questions-btn:hover {
+    transform: scale(1.05);
+    background: var(--accent-hover);
+}
+
+.toggle-questions-btn i {
+    font-size: 14px;
+}
+
+/* Мобильные стили */
+@media (max-width: 768px) {
+    .toggle-questions-btn {
+        display: flex;
+    }
+
+    /* Убираем дублирующую кнопку меню из шапки */
+    .menu-toggle {
+        display: none !important;
+    }
+
+    .chat-header {
+        padding-left: 70px;
+    }
+}
+
+/* Затемнение для сайдбара */
+.sidebar-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    transition: all 0.3s ease;
+}
+
+.sidebar-overlay.active {
+    display: block;
+}

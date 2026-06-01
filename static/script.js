@@ -288,11 +288,10 @@ function initTheme() {
     }
 }
 
-// Мобильное меню
+// Мобильное меню (только одна кнопка)
 function initMobileMenu() {
     const mobileMenuToggle = document.getElementById('mobileMenuToggle');
     const sidebar = document.getElementById('sidebar');
-    const chatMain = document.querySelector('.chat-main');
 
     // Создаем overlay
     let overlay = document.querySelector('.sidebar-overlay');
@@ -315,6 +314,10 @@ function initMobileMenu() {
     }
 
     if (mobileMenuToggle) {
+        // Убираем старые обработчики
+        mobileMenuToggle.removeEventListener('click', openSidebar);
+        mobileMenuToggle.removeEventListener('click', closeSidebar);
+
         mobileMenuToggle.addEventListener('click', (e) => {
             e.stopPropagation();
             if (sidebar.classList.contains('open')) {
@@ -325,20 +328,10 @@ function initMobileMenu() {
         });
     }
 
+    // Закрыть по клику на overlay
     overlay.addEventListener('click', closeSidebar);
 
-    // Закрыть при клике вне (для десктопа не нужно, только для мобильных)
-    if (window.innerWidth <= 768) {
-        document.addEventListener('click', (e) => {
-            if (sidebar.classList.contains('open') &&
-                !sidebar.contains(e.target) &&
-                !mobileMenuToggle.contains(e.target)) {
-                closeSidebar();
-            }
-        });
-    }
-
-    // Закрыть при изменении размера окна
+    // Закрыть при изменении размера окна (если открыто и стало больше 768px)
     window.addEventListener('resize', () => {
         if (window.innerWidth > 768 && sidebar.classList.contains('open')) {
             closeSidebar();
@@ -348,40 +341,54 @@ function initMobileMenu() {
 
 // Скрытие/показ окна с вопросами
 function initToggleQuestions() {
-    const toggleBtn = document.createElement('button');
-    toggleBtn.className = 'toggle-questions-btn';
-    toggleBtn.innerHTML = '<i class="fas fa-comments"></i>';
-    toggleBtn.title = 'Скрыть/показать вопросы';
-    document.body.appendChild(toggleBtn);
-
+    const toggleBtn = document.getElementById('toggleQuestionsBtn');
     const optionsContainer = document.getElementById('optionsContainer');
+    const toggleText = toggleBtn.querySelector('.toggle-text');
+    const toggleIcon = toggleBtn.querySelector('i');
+
     let isHidden = false;
+
+    // Сохраняем состояние в localStorage
+    const savedState = localStorage.getItem('questionsHidden');
+    if (savedState === 'true') {
+        isHidden = true;
+        optionsContainer.style.display = 'none';
+        toggleText.textContent = 'Показать';
+        toggleIcon.className = 'fas fa-chevron-down';
+    }
 
     toggleBtn.addEventListener('click', () => {
         isHidden = !isHidden;
+
         if (isHidden) {
             optionsContainer.style.display = 'none';
-            toggleBtn.innerHTML = '<i class="fas fa-comment-dots"></i>';
-            toggleBtn.title = 'Показать вопросы';
+            toggleText.textContent = 'Показать';
+            toggleIcon.className = 'fas fa-chevron-down';
+            localStorage.setItem('questionsHidden', 'true');
         } else {
             optionsContainer.style.display = 'flex';
-            toggleBtn.innerHTML = '<i class="fas fa-comments"></i>';
-            toggleBtn.title = 'Скрыть вопросы';
+            toggleText.textContent = 'Скрыть';
+            toggleIcon.className = 'fas fa-chevron-up';
+            localStorage.setItem('questionsHidden', 'false');
         }
     });
 
     // Показываем кнопку только на мобильных и когда есть активные вопросы
     const checkVisibility = () => {
-        if (window.innerWidth <= 768 && optionsContainer.style.display !== 'none') {
+        if (window.innerWidth <= 768 && optionsContainer.children.length > 0) {
             toggleBtn.style.display = 'flex';
         } else {
             toggleBtn.style.display = 'none';
         }
     };
 
-    // Наблюдаем за изменениями
+    // Наблюдаем за изменениями в контейнере опций
     const observer = new MutationObserver(checkVisibility);
-    observer.observe(optionsContainer, { attributes: true, attributeFilter: ['style'] });
+    observer.observe(optionsContainer, {
+        childList: true,
+        attributes: true,
+        attributeFilter: ['style']
+    });
     checkVisibility();
 
     window.addEventListener('resize', checkVisibility);
