@@ -52,7 +52,7 @@ function addBotMessage(text, withOptions = false) {
 // Форматирование текста сообщения
 function formatMessageText(text) {
     if (text.includes('<div')) {
-        return text; // Уже HTML
+        return text;
     }
     return escapeHtml(text).replace(/\n/g, '<br>');
 }
@@ -118,16 +118,12 @@ async function handleAnswer(answer, index) {
     currentQuestionIndex++;
 
     if (currentQuestionIndex < questions.length) {
-        // Показываем следующий вопрос с задержкой
         setTimeout(() => {
             displayCurrentQuestion();
             isProcessing = false;
         }, 500);
     } else {
-        // Показываем индикатор загрузки
         showLoading();
-
-        // Отправляем на сервер
         setTimeout(() => {
             calculateAndShowResult();
             isProcessing = false;
@@ -239,7 +235,6 @@ function resetQuiz() {
     userAnswers = [];
     isProcessing = false;
 
-    // Очищаем сообщения
     const messagesContainer = document.getElementById('chatMessages');
     messagesContainer.innerHTML = `
         <div class="message bot">
@@ -254,19 +249,16 @@ function resetQuiz() {
         </div>
     `;
 
-    // Сбрасываем прогресс
     const progressFill = document.querySelector('.progress-fill');
     if (progressFill) {
         progressFill.style.width = '0%';
     }
 
-    // Скрываем опции если они есть
     const optionsContainer = document.getElementById('optionsContainer');
     if (optionsContainer) {
         optionsContainer.style.display = 'none';
     }
 
-    // Показываем первый вопрос
     setTimeout(() => {
         displayCurrentQuestion();
     }, 500);
@@ -280,105 +272,127 @@ function scrollToBottom() {
     }
 }
 
-// Тема с динамическим обновлением иконок
+// Тема
 function initTheme() {
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme === 'dark') {
         document.body.classList.add('dark-theme');
-        updateThemeIcon('dark');
-    } else {
-        updateThemeIcon('light');
     }
 
     const themeToggle = document.getElementById('themeToggle');
     if (themeToggle) {
         themeToggle.addEventListener('click', () => {
-            const isDark = document.body.classList.toggle('dark-theme');
-            localStorage.setItem('theme', isDark ? 'dark' : 'light');
-            updateThemeIcon(isDark ? 'dark' : 'light');
-
-            // Добавляем визуальную обратную связь
-            const slider = themeToggle.querySelector('.toggle-slider');
-            if (slider) {
-                slider.style.transform = isDark ? 'translateX(30px)' : 'translateX(0)';
-            }
-        });
-    }
-}
-
-// Обновление иконки темы
-function updateThemeIcon(theme) {
-    const sunIcon = document.querySelector('.theme-toggle .fa-sun');
-    const moonIcon = document.querySelector('.theme-toggle .fa-moon');
-    if (sunIcon && moonIcon) {
-        if (theme === 'dark') {
-            sunIcon.style.opacity = '0.5';
-            moonIcon.style.opacity = '1';
-        } else {
-            sunIcon.style.opacity = '1';
-            moonIcon.style.opacity = '0.5';
-        }
-    }
-}
-
-// Мобильное меню
-function initMobileMenu() {
-    const menuToggle = document.getElementById('menuToggle');
-    const sidebar = document.querySelector('.sidebar');
-
-    if (menuToggle && sidebar) {
-        menuToggle.addEventListener('click', (e) => {
-            e.stopPropagation();
-            sidebar.classList.toggle('open');
-        });
-
-        // Закрыть при клике вне
-        document.addEventListener('click', (e) => {
-            if (sidebar.classList.contains('open')) {
-                if (!sidebar.contains(e.target) && !menuToggle.contains(e.target)) {
-                    sidebar.classList.remove('open');
-                }
-            }
-        });
-
-        // Закрыть при выборе опции
-        const links = sidebar.querySelectorAll('button, a');
-        links.forEach(link => {
-            link.addEventListener('click', () => {
-                if (window.innerWidth <= 768) {
-                    sidebar.classList.remove('open');
-                }
-            });
+            document.body.classList.toggle('dark-theme');
+            localStorage.setItem('theme', document.body.classList.contains('dark-theme') ? 'dark' : 'light');
         });
     }
 }
 
 // Мобильное меню
 function initMobileMenu() {
-    const menuToggle = document.getElementById('mobileMenuToggle');
+    const mobileMenuToggle = document.getElementById('mobileMenuToggle');
     const sidebar = document.getElementById('sidebar');
+    const chatMain = document.querySelector('.chat-main');
 
-    if (menuToggle && sidebar) {
-        menuToggle.addEventListener('click', () => {
-            sidebar.classList.toggle('open');
+    // Создаем overlay
+    let overlay = document.querySelector('.sidebar-overlay');
+    if (!overlay) {
+        overlay = document.createElement('div');
+        overlay.className = 'sidebar-overlay';
+        document.body.appendChild(overlay);
+    }
+
+    function openSidebar() {
+        sidebar.classList.add('open');
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeSidebar() {
+        sidebar.classList.remove('open');
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    if (mobileMenuToggle) {
+        mobileMenuToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (sidebar.classList.contains('open')) {
+                closeSidebar();
+            } else {
+                openSidebar();
+            }
         });
+    }
 
+    overlay.addEventListener('click', closeSidebar);
+
+    // Закрыть при клике вне (для десктопа не нужно, только для мобильных)
+    if (window.innerWidth <= 768) {
         document.addEventListener('click', (e) => {
             if (sidebar.classList.contains('open') &&
                 !sidebar.contains(e.target) &&
-                !menuToggle.contains(e.target)) {
-                sidebar.classList.remove('open');
+                !mobileMenuToggle.contains(e.target)) {
+                closeSidebar();
             }
         });
     }
+
+    // Закрыть при изменении размера окна
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 768 && sidebar.classList.contains('open')) {
+            closeSidebar();
+        }
+    });
+}
+
+// Скрытие/показ окна с вопросами
+function initToggleQuestions() {
+    const toggleBtn = document.createElement('button');
+    toggleBtn.className = 'toggle-questions-btn';
+    toggleBtn.innerHTML = '<i class="fas fa-comments"></i>';
+    toggleBtn.title = 'Скрыть/показать вопросы';
+    document.body.appendChild(toggleBtn);
+
+    const optionsContainer = document.getElementById('optionsContainer');
+    let isHidden = false;
+
+    toggleBtn.addEventListener('click', () => {
+        isHidden = !isHidden;
+        if (isHidden) {
+            optionsContainer.style.display = 'none';
+            toggleBtn.innerHTML = '<i class="fas fa-comment-dots"></i>';
+            toggleBtn.title = 'Показать вопросы';
+        } else {
+            optionsContainer.style.display = 'flex';
+            toggleBtn.innerHTML = '<i class="fas fa-comments"></i>';
+            toggleBtn.title = 'Скрыть вопросы';
+        }
+    });
+
+    // Показываем кнопку только на мобильных и когда есть активные вопросы
+    const checkVisibility = () => {
+        if (window.innerWidth <= 768 && optionsContainer.style.display !== 'none') {
+            toggleBtn.style.display = 'flex';
+        } else {
+            toggleBtn.style.display = 'none';
+        }
+    };
+
+    // Наблюдаем за изменениями
+    const observer = new MutationObserver(checkVisibility);
+    observer.observe(optionsContainer, { attributes: true, attributeFilter: ['style'] });
+    checkVisibility();
+
+    window.addEventListener('resize', checkVisibility);
 }
 
 // Инициализация
 document.addEventListener('DOMContentLoaded', () => {
-    initMobileMenu();
     loadQuestions();
     initTheme();
     initMobileMenu();
+    initToggleQuestions();
 
     const resetBtn = document.getElementById('resetBtn');
     if (resetBtn) {
@@ -386,6 +400,15 @@ document.addEventListener('DOMContentLoaded', () => {
             if (confirm('Начать тест заново?')) {
                 resetQuiz();
             }
+        });
+    }
+
+    // Кнопка меню для десктопа (гамбургер в шапке)
+    const menuToggle = document.getElementById('menuToggle');
+    const sidebar = document.getElementById('sidebar');
+    if (menuToggle && sidebar) {
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('open');
         });
     }
 });

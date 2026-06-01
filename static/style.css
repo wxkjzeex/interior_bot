@@ -318,6 +318,11 @@ body.dark-theme .theme-toggle .toggle-slider {
     color: var(--text-primary);
     cursor: pointer;
     padding: 8px;
+    transition: color 0.3s ease;
+}
+
+.menu-toggle:hover {
+    color: var(--accent-primary);
 }
 
 .chat-messages {
@@ -327,6 +332,39 @@ body.dark-theme .theme-toggle .toggle-slider {
     display: flex;
     flex-direction: column;
     gap: 24px;
+}
+
+/* Скрыть окно с вопросами */
+.question-area {
+    transition: all 0.3s ease;
+}
+
+.question-area.hidden {
+    display: none;
+}
+
+.toggle-questions-btn {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: var(--accent-primary);
+    border: none;
+    border-radius: 50%;
+    width: 56px;
+    height: 56px;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 1000;
+    box-shadow: var(--shadow-lg);
+    transition: all 0.3s ease;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.toggle-questions-btn:hover {
+    transform: scale(1.05);
 }
 
 /* Сообщения */
@@ -597,26 +635,35 @@ body.dark-theme .theme-toggle .toggle-slider {
     border-radius: 3px;
 }
 
-/* Мобильное меню */
+/* Мобильное меню и адаптивность */
 .mobile-menu-toggle {
     display: none;
     position: fixed;
-    top: 20px;
-    left: 20px;
+    top: 16px;
+    left: 16px;
     z-index: 1001;
     background: var(--accent-primary);
     border: none;
     border-radius: 12px;
-    padding: 12px;
+    width: 44px;
+    height: 44px;
     color: white;
     font-size: 20px;
     cursor: pointer;
+    box-shadow: var(--shadow-md);
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.mobile-menu-toggle:hover {
+    transform: scale(1.05);
 }
 
 /* Responsive */
 @media (max-width: 768px) {
     .mobile-menu-toggle {
-        display: block;
+        display: flex;
     }
 
     .sidebar {
@@ -633,6 +680,23 @@ body.dark-theme .theme-toggle .toggle-slider {
         left: 0;
     }
 
+    /* Затемнение фона при открытом меню */
+    .sidebar-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+        transition: display 0.3s ease;
+    }
+
+    .sidebar-overlay.active {
+        display: block;
+    }
+
     .chat-messages {
         padding: 20px;
         margin-top: 60px;
@@ -647,12 +711,52 @@ body.dark-theme .theme-toggle .toggle-slider {
     }
 
     .chat-header {
-        padding: 20px 24px;
-        margin-top: 40px;
+        padding: 16px 20px;
+        margin-top: 50px;
     }
 
     .header-content h1 {
+        font-size: 20px;
+    }
+
+    .header-content p {
+        font-size: 12px;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+    /* Кнопка скрытия вопросов на мобильных */
+    .toggle-questions-btn {
+        display: flex;
+    }
+
+    /* Улучшенная читаемость на мобильных */
+    .message-text {
+        font-size: 13px;
+        padding: 10px 16px;
+    }
+
+    .option-btn {
+        padding: 8px 16px;
+        font-size: 12px;
+    }
+
+    .result-card {
+        padding: 16px;
+    }
+
+    .result-style-name {
         font-size: 22px;
+    }
+
+    .result-style-full {
+        font-size: 14px;
+    }
+
+    .result-description {
+        font-size: 13px;
     }
 }
 
@@ -662,10 +766,19 @@ body.dark-theme .theme-toggle .toggle-slider {
     }
 
     .result-card {
-        padding: 20px;
+        padding: 16px;
     }
 
     .result-style-name {
-        font-size: 24px;
+        font-size: 20px;
+    }
+
+    .tags {
+        gap: 6px;
+    }
+
+    .tag {
+        padding: 4px 10px;
+        font-size: 11px;
     }
 }
