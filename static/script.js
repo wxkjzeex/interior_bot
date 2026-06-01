@@ -353,8 +353,29 @@ function initMobileMenu() {
     }
 }
 
+// Мобильное меню
+function initMobileMenu() {
+    const menuToggle = document.getElementById('mobileMenuToggle');
+    const sidebar = document.getElementById('sidebar');
+
+    if (menuToggle && sidebar) {
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('open');
+        });
+
+        document.addEventListener('click', (e) => {
+            if (sidebar.classList.contains('open') &&
+                !sidebar.contains(e.target) &&
+                !menuToggle.contains(e.target)) {
+                sidebar.classList.remove('open');
+            }
+        });
+    }
+}
+
 // Инициализация
 document.addEventListener('DOMContentLoaded', () => {
+    initMobileMenu();
     loadQuestions();
     initTheme();
     initMobileMenu();

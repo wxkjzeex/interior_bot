@@ -10,57 +10,63 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <button class="mobile-menu-toggle" id="mobileMenuToggle">
+        <i class="fas fa-bars"></i>
+    </button>
+
     <div class="app">
         <!-- Sidebar с брендингом -->
-        <aside class="sidebar">
-            <div class="logo">
-                <div class="logo-icon">◈</div>
-                <div class="logo-text">
-                    <span class="logo-title">INTERIOR</span>
-                    <span class="logo-subtitle">SENSE</span>
+        <aside class="sidebar" id="sidebar">
+            <div>
+                <div class="logo">
+                    <div class="logo-icon">◈</div>
+                    <div class="logo-text">
+                        <span class="logo-title">INTERIOR</span>
+                        <span class="logo-subtitle">SENSE</span>
+                    </div>
+                </div>
+
+                <div class="sidebar-content">
+                    <h3>AI-консультант</h3>
+                    <p>Подберём стиль интерьера, который отражает вашу личность</p>
+
+                    <div class="stats">
+                        <div class="stat-item">
+                            <span class="stat-value">8+</span>
+                            <span class="stat-label">стилей</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">5</span>
+                            <span class="stat-label">шагов</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">100%</span>
+                            <span class="stat-label">индивидуально</span>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div class="sidebar-content">
-                <h3>AI-консультант</h3>
-                <p>Подберём стиль интерьера, который отражает вашу личность</p>
-
-                <div class="stats">
-                    <div class="stat-item">
-                        <span class="stat-value">8+</span>
-                        <span class="stat-label">стилей</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-value">5</span>
-                        <span class="stat-label">шагов</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-value">100%</span>
-                        <span class="stat-label">индивидуально</span>
-                    </div>
+            <div>
+                <div class="theme-toggle-wrapper">
+                    <button class="theme-toggle" id="themeToggle">
+                        <i class="fas fa-sun"></i>
+                        <i class="fas fa-moon"></i>
+                        <span class="toggle-slider"></span>
+                    </button>
+                    <span class="theme-label">Тема</span>
                 </div>
-            </div>
 
-            <!-- Theme Toggle -->
-            <div class="theme-toggle-wrapper">
-                <button class="theme-toggle" id="themeToggle">
-                    <i class="fas fa-sun"></i>
-                    <i class="fas fa-moon"></i>
-                    <span class="toggle-slider"></span>
+                <a href="/styles-gallery" class="gallery-btn">
+                    <i class="fas fa-images"></i>
+                    <span>Галерея стилей</span>
+                </a>
+
+                <button class="reset-btn" id="resetBtn">
+                    <i class="fas fa-redo-alt"></i>
+                    <span>Начать заново</span>
                 </button>
-                <span class="theme-label">Тема</span>
             </div>
-
-            <!-- Кнопка галереи стилей (над кнопкой начать заново) -->
-            <a href="/styles-gallery" class="gallery-btn">
-                <i class="fas fa-images"></i>
-                <span>Галерея стилей</span>
-            </a>
-
-            <button class="reset-btn" id="resetBtn">
-                <i class="fas fa-redo-alt"></i>
-                <span>Начать заново</span>
-            </button>
         </aside>
 
         <!-- Основной чат -->
@@ -78,7 +84,6 @@
             </div>
 
             <div class="chat-messages" id="chatMessages">
-                <!-- Сообщения будут здесь -->
                 <div class="message bot">
                     <div class="message-avatar">
                         <i class="fas fa-robot"></i>
