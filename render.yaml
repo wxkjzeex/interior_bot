@@ -2,7 +2,8 @@ services:
   - type: web
     name: interior-bot
     runtime: python
-    repo: https://github.com/YOUR_USERNAME/interior_bot  # замените на ваш репозиторий
+    repo: https://github.com/wxkjzeex/interior_bot.git
+    branch: master
     plan: free
     region: frankfurt
     buildCommand: pip install -r requirements.txt
