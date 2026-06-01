@@ -6,16 +6,15 @@
 
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    background: var(--bg-primary);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     min-height: 100vh;
     height: 100vh;
     overflow: hidden;
-    transition: background 0.3s ease;
 }
 
-/* Тёмная тема */
+/* Тёмная тема - принудительные цвета */
 body.dark-theme {
-    background: var(--bg-primary);
+    background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 100%);
 }
 
 .app {
@@ -69,14 +68,14 @@ body:not(.dark-theme) {
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
 }
 
-/* ========== ТЁМНАЯ ТЕМА ========== */
+/* ========== ТЁМНАЯ ТЕМА (принудительно) ========== */
 body.dark-theme {
     --bg-primary: #0d1117;
     --bg-secondary: #161b22;
     --bg-tertiary: #1f242e;
     --bg-hover: #2d333b;
 
-    /* Текст - тёмная тема */
+    /* Текст - тёмная тема (светлый на тёмном) */
     --text-primary: #ffffff;
     --text-secondary: #c9d1d9;
     --text-muted: #8b949e;
@@ -109,7 +108,7 @@ body.dark-theme {
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
 }
 
-/* ========== SIDEBAR (всегда тёмный) ========== */
+/* ========== SIDEBAR (всегда тёмный, но текст читаемый) ========== */
 .sidebar {
     width: 300px;
     background: linear-gradient(165deg, #0a0a0f 0%, #16161f 100%);
@@ -119,7 +118,6 @@ body.dark-theme {
     padding: 40px 24px;
     position: relative;
     overflow-y: auto;
-    overflow-x: hidden;
     transition: all 0.3s ease;
 }
 
@@ -166,35 +164,6 @@ body.dark-theme {
     font-size: 11px;
     color: #a0a0b0;
     margin-top: 4px;
-}
-
-/* Кнопка галереи стилей */
-.gallery-btn {
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: white;
-    padding: 12px 20px;
-    border-radius: 12px;
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    margin-bottom: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    text-decoration: none;
-}
-
-.gallery-btn:hover {
-    background: rgba(255, 255, 255, 0.2);
-    transform: translateY(-2px);
-}
-
-.gallery-btn i {
-    color: white;
-    font-size: 16px;
 }
 
 /* Theme Toggle */
@@ -312,7 +281,6 @@ body.dark-theme .theme-toggle .toggle-slider {
     padding: 8px;
 }
 
-/* ========== ЧАТ СООБЩЕНИЯ ========== */
 .chat-messages {
     flex: 1;
     overflow-y: auto;
@@ -320,9 +288,9 @@ body.dark-theme .theme-toggle .toggle-slider {
     display: flex;
     flex-direction: column;
     gap: 24px;
-    min-height: 0;
 }
 
+/* Сообщения */
 .message {
     display: flex;
     gap: 12px;
@@ -368,6 +336,7 @@ body.dark-theme .theme-toggle .toggle-slider {
     text-align: right;
 }
 
+/* ТЕКСТ СООБЩЕНИЙ - принудительные цвета */
 .message-text {
     background: var(--bot-bubble);
     padding: 12px 20px;
@@ -390,7 +359,7 @@ body.dark-theme .theme-toggle .toggle-slider {
     border-bottom-left-radius: 20px;
 }
 
-/* ========== КНОПКИ ОПЦИЙ ========== */
+/* Кнопки опций */
 .options-container {
     display: flex;
     flex-wrap: wrap;
@@ -419,7 +388,7 @@ body.dark-theme .theme-toggle .toggle-slider {
     color: #ffffff !important;
 }
 
-/* ========== РЕЗУЛЬТАТ ========== */
+/* Результат */
 .result-card {
     background: var(--bg-secondary);
     border-radius: 24px;
@@ -522,7 +491,7 @@ body.dark-theme .theme-toggle .toggle-slider {
     font-weight: bold;
 }
 
-/* ========== ЗАГРУЗКА ========== */
+/* Загрузка */
 .loading {
     padding: 20px 48px;
     display: flex;
@@ -564,7 +533,6 @@ body.dark-theme .theme-toggle .toggle-slider {
     }
 }
 
-/* ========== ПРОГРЕСС-БАР ========== */
 .progress-bar {
     height: 3px;
     background: var(--border-color);
@@ -576,7 +544,7 @@ body.dark-theme .theme-toggle .toggle-slider {
     transition: width 0.3s ease;
 }
 
-/* ========== SCROLLBAR ========== */
+/* Scrollbar */
 ::-webkit-scrollbar {
     width: 6px;
 }
@@ -643,4 +611,58 @@ body.dark-theme .theme-toggle .toggle-slider {
     .result-style-name {
         font-size: 24px;
     }
+}
+/* Кнопка галереи стилей */
+.gallery-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-decoration: none;
+}
+
+.gallery-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+.gallery-btn i {
+    color: white;
+    font-size: 16px;
+}
+
+/* Обеспечение прокрутки чата */
+.chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 32px 48px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    min-height: 0; /* Важно для прокрутки в flex */
+}
+
+/* Для всей страницы */
+body {
+    overflow: hidden;
+}
+
+.app {
+    overflow: hidden;
+}
+
+/* Убедимся что сайдбар тоже может прокручиваться если контента много */
+.sidebar {
+    overflow-y: auto;
+    overflow-x: hidden;
 }
