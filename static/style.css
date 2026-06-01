@@ -6,35 +6,29 @@
 
 html, body {
     height: 100%;
-    margin: 0;
-    padding: 0;
 }
 
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    min-height: 100vh;
     overflow-y: auto;
-    overflow-x: hidden;
 }
 
-/* Тёмная тема */
 body.dark-theme {
     background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 100%);
 }
 
 .app {
     display: flex;
-    min-height: 100vh;
     max-width: 1600px;
     margin: 0 auto;
     background: var(--bg-primary);
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    min-height: 100vh;
 }
 
 /* ========== СВЕТЛАЯ ТЕМА ========== */
-:root,
-body:not(.dark-theme) {
+:root, body:not(.dark-theme) {
     --bg-primary: #ffffff;
     --bg-secondary: #f8f9fa;
     --bg-tertiary: #f1f3f5;
@@ -61,7 +55,6 @@ body:not(.dark-theme) {
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
 }
 
-/* ========== ТЁМНАЯ ТЕМА ========== */
 body.dark-theme {
     --bg-primary: #0d1117;
     --bg-secondary: #161b22;
@@ -89,7 +82,7 @@ body.dark-theme {
     --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
 }
 
-/* ========== SIDEBAR - ТЕПЕРЬ НЕ СТИКИ, А ОБЫЧНЫЙ БЛОК ========== */
+/* ========== SIDEBAR - ОБЫЧНЫЙ БЛОК ========== */
 .sidebar {
     width: 300px;
     background: linear-gradient(165deg, #0a0a0f 0%, #16161f 100%);
@@ -98,7 +91,6 @@ body.dark-theme {
     justify-content: space-between;
     padding: 40px 24px;
     flex-shrink: 0;
-    min-height: 100vh;
 }
 
 .logo-icon {
@@ -152,7 +144,6 @@ body.dark-theme {
     margin-top: 4px;
 }
 
-/* Theme Toggle */
 .theme-toggle-wrapper {
     margin: 20px 0;
     display: flex;
@@ -203,7 +194,6 @@ body.dark-theme .theme-toggle .toggle-slider {
     transform: translateX(30px);
 }
 
-/* Кнопка галереи стилей */
 .gallery-btn {
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.2);
@@ -227,11 +217,6 @@ body.dark-theme .theme-toggle .toggle-slider {
     transform: translateY(-2px);
 }
 
-.gallery-btn i {
-    color: white;
-    font-size: 16px;
-}
-
 .reset-btn {
     background: rgba(255, 255, 255, 0.08);
     border: 1px solid rgba(255, 255, 255, 0.15);
@@ -249,10 +234,6 @@ body.dark-theme .theme-toggle .toggle-slider {
     width: 100%;
 }
 
-.reset-btn i {
-    color: #ffffff;
-}
-
 .reset-btn:hover {
     background: rgba(255, 255, 255, 0.15);
     transform: translateY(-2px);
@@ -264,7 +245,6 @@ body.dark-theme .theme-toggle .toggle-slider {
     display: flex;
     flex-direction: column;
     background: var(--bg-primary);
-    min-height: 100vh;
 }
 
 .chat-header {
@@ -297,9 +277,7 @@ body.dark-theme .theme-toggle .toggle-slider {
     padding: 8px;
 }
 
-/* ЧАТ СООБЩЕНИЯ */
 .chat-messages {
-    flex: 1;
     padding: 32px 48px;
     display: flex;
     flex-direction: column;
@@ -360,7 +338,6 @@ body.dark-theme .theme-toggle .toggle-slider {
     line-height: 1.5;
     color: var(--bot-text) !important;
     word-wrap: break-word;
-    white-space: normal;
     display: inline-block;
     width: auto;
     max-width: 100%;
@@ -373,7 +350,6 @@ body.dark-theme .theme-toggle .toggle-slider {
     border-bottom-left-radius: 20px;
 }
 
-/* Кнопки опций */
 .chat-input-area {
     margin-top: auto;
     border-top: 1px solid var(--border-color);
@@ -398,7 +374,6 @@ body.dark-theme .theme-toggle .toggle-slider {
     color: var(--text-primary) !important;
     cursor: pointer;
     transition: all 0.2s ease;
-    font-family: inherit;
 }
 
 .option-btn:hover {
@@ -407,7 +382,6 @@ body.dark-theme .theme-toggle .toggle-slider {
     color: #ffffff !important;
 }
 
-/* Результат */
 .result-card {
     background: var(--bg-secondary);
     border-radius: 24px;
@@ -510,18 +484,12 @@ body.dark-theme .theme-toggle .toggle-slider {
     font-weight: bold;
 }
 
-/* Загрузка */
 .loading {
     padding: 20px 48px;
     display: flex;
     align-items: center;
     gap: 12px;
     background: var(--bg-primary);
-}
-
-.loading span {
-    color: var(--text-secondary) !important;
-    font-size: 14px;
 }
 
 .dot {
@@ -562,7 +530,6 @@ body.dark-theme .theme-toggle .toggle-slider {
     transition: width 0.3s ease;
 }
 
-/* Scrollbar */
 ::-webkit-scrollbar {
     width: 6px;
 }
@@ -586,7 +553,6 @@ body.dark-theme .theme-toggle .toggle-slider {
         z-index: 1000;
         transition: left 0.3s ease;
         box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
-        min-height: auto;
     }
 
     .sidebar.open {
