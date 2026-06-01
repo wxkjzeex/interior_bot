@@ -108,7 +108,7 @@ STYLE_DESCRIPTIONS = {
             "Бумажный светильник"
         ],
         "avoid": ["Пластик", "Яркие цвета", "Излишний декор"],
-        "image": "https://images.unsplash.com/photo-1616486338812-3eadae5b9c1c?w=600&h=400&fit=crop"
+        "image": "https://ru.pinterest.com/pin/1102959765012876940/"
     },
     "scandi": {
         "name": "Scandi",
@@ -123,7 +123,7 @@ STYLE_DESCRIPTIONS = {
             "Живые растения"
         ],
         "avoid": ["Тёмные тона", "Массивная мебель", "Агрессивные узоры"],
-        "image": "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=600&h=400&fit=crop"
+        "image": "https://ru.pinterest.com/pin/656610820718408460/"
     },
     "minimal": {
         "name": "Minimal",
@@ -138,7 +138,7 @@ STYLE_DESCRIPTIONS = {
             "Зеркало в простой раме"
         ],
         "avoid": ["Декор без функции", "Пёстрые обои", "Много текстиля"],
-        "image": "https://images.unsplash.com/photo-1616486029423-aaa4789e8c9a?w=600&h=400&fit=crop"
+        "image": "https://ru.pinterest.com/pin/67131850692464196/"
     },
     "loft": {
         "name": "Loft",
@@ -153,7 +153,7 @@ STYLE_DESCRIPTIONS = {
             "Постеры в чёрных рамках"
         ],
         "avoid": ["Позолота", "Рюши", "Классическая мебель"],
-        "image": "https://images.unsplash.com/photo-1572120360610-d971b9d7767c?w=600&h=400&fit=crop"
+        "image": "https://ru.pinterest.com/pin/3025924746257553/"
     },
     "artdeco": {
         "name": "Art Deco",
@@ -168,7 +168,7 @@ STYLE_DESCRIPTIONS = {
             "Латунные светильники"
         ],
         "avoid": ["Простота", "Деревенские мотивы", "Бюджетные материалы"],
-        "image": "https://images.unsplash.com/photo-1618220179428-22790b461013?w=600&h=400&fit=crop"
+        "image": "https://ru.pinterest.com/pin/1123859282032136762/"
     },
     "classic": {
         "name": "Classic",
@@ -183,7 +183,7 @@ STYLE_DESCRIPTIONS = {
             "Картины в рамах"
         ],
         "avoid": ["Минимализм", "Открытые коммуникации", "Пластик"],
-        "image": "https://images.unsplash.com/photo-1616486081543-5a1731ba264c?w=600&h=400&fit=crop"
+        "image": "https://yandex.ru/images/search?from=tabbar&img_url=https%3A%2F%2Fmir-s3-cdn-cf.behance.net%2Fproject_modules%2Fmax_3840_webp%2F5716b0119659483.60a2927a81f28.jpg&lr=44&pos=7&rpt=simage&text=Classic%20interior"
     },
     "hitech": {
         "name": "Hi-Tech",
@@ -198,7 +198,7 @@ STYLE_DESCRIPTIONS = {
             "Сенсорные выключатели"
         ],
         "avoid": ["Дерево", "Винтаж", "Мягкие формы"],
-        "image": "https://images.unsplash.com/photo-1616486338812-3eadae5b9c1c?w=600&h=400&fit=crop"
+        "image": "https://ru.pinterest.com/pin/3166662233611918/"
     },
     "midcentury": {
         "name": "Mid-Century",
@@ -213,7 +213,7 @@ STYLE_DESCRIPTIONS = {
             "Деревянный комод на ножках"
         ],
         "avoid": ["Классика", "Хай-тек", "Излишняя роскошь"],
-        "image": "https://images.unsplash.com/photo-1616486338812-3eadae5b9c1c?w=600&h=400&fit=crop"
+        "image": "https://ru.pinterest.com/pin/1123859282032460084/"
     },
     "boho": {
         "name": "Boho",
@@ -228,7 +228,7 @@ STYLE_DESCRIPTIONS = {
             "Ковры с узорами"
         ],
         "avoid": ["Минимализм", "Строгие линии", "Дорогой глянец"],
-        "image": "https://images.unsplash.com/photo-1616486338812-3eadae5b9c1c?w=600&h=400&fit=crop"
+        "image": "https://ru.pinterest.com/pin/6333255724030513/"
     }
 }
 
