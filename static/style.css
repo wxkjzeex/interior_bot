@@ -612,3 +612,57 @@ body.dark-theme .theme-toggle .toggle-slider {
         font-size: 24px;
     }
 }
+/* Кнопка галереи стилей */
+.gallery-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-decoration: none;
+}
+
+.gallery-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+.gallery-btn i {
+    color: white;
+    font-size: 16px;
+}
+
+/* Обеспечение прокрутки чата */
+.chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 32px 48px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    min-height: 0; /* Важно для прокрутки в flex */
+}
+
+/* Для всей страницы */
+body {
+    overflow: hidden;
+}
+
+.app {
+    overflow: hidden;
+}
+
+/* Убедимся что сайдбар тоже может прокручиваться если контента много */
+.sidebar {
+    overflow-y: auto;
+    overflow-x: hidden;
+}
