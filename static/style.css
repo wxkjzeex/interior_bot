@@ -663,3 +663,35 @@ body.dark-theme .theme-toggle .toggle-slider {
         font-size: 24px;
     }
 }
+
+body {
+    overflow-y: auto !important;
+    height: auto !important;
+    min-height: 100vh;
+}
+
+.app {
+    height: auto !important;
+    min-height: 100vh;
+}
+
+.sidebar {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+.chat-main {
+    min-height: 100vh;
+}
+
+.chat-messages {
+    overflow-y: visible !important;
+    padding-bottom: 20px;
+}
+
+/* Убираем лишние overflow */
+html {
+    overflow-y: auto !important;
+}
