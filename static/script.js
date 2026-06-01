@@ -171,6 +171,7 @@ function displayResult(result) {
 
     let resultHTML = `
         <div class="result-card">
+            ${main.image ? `<img src="${main.image}" alt="${main.name}" style="width: 100%; border-radius: 16px; margin-bottom: 20px;">` : ''}
             <div class="result-header">
                 <div class="result-badge">Ваш стиль</div>
                 <div class="result-confidence">${result.confidence}% соответствие</div>
