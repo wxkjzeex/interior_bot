@@ -13,6 +13,7 @@
             max-width: 1400px;
             margin: 0 auto;
             padding: 40px 24px;
+            width: 100%;
         }
 
         .gallery-header {
@@ -287,73 +288,298 @@
             border-color: var(--accent-primary);
         }
 
+        /* Специальный стиль для страницы галереи - чтобы контент был по центру */
+        .gallery-layout {
+            display: flex;
+            width: 100%;
+            min-height: 100vh;
+        }
+
+        /* Сайдбар для галереи */
+        .gallery-sidebar {
+            width: 300px;
+            background: linear-gradient(165deg, #1a1a2a 0%, #2d2d3a 100%);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 40px 24px;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            left: 0;
+            top: 0;
+        }
+
+        .gallery-main {
+            flex: 1;
+            margin-left: 300px;
+            background: var(--bg-primary);
+            min-height: 100vh;
+            overflow-y: auto;
+        }
+
+        body.dark-theme .gallery-main {
+            background: var(--bg-primary);
+        }
+
         @media (max-width: 768px) {
-            .styles-grid {
-                grid-template-columns: 1fr;
+            .gallery-sidebar {
+                left: -300px;
+                transition: left 0.3s ease;
+                z-index: 1000;
+            }
+
+            .gallery-sidebar.open {
+                left: 0;
+            }
+
+            .gallery-main {
+                margin-left: 0;
             }
 
             .gallery-header h1 {
                 font-size: 28px;
             }
+
+            .styles-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Стили для элементов сайдбара галереи */
+        .gallery-sidebar .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 48px;
+        }
+
+        .gallery-sidebar .logo-icon {
+            font-size: 32px;
+            color: var(--accent-primary);
+        }
+
+        .gallery-sidebar .logo-title {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: white;
+        }
+
+        .gallery-sidebar .logo-subtitle {
+            font-size: 10px;
+            letter-spacing: 3px;
+            opacity: 0.6;
+            color: #a0a0a0;
+        }
+
+        .gallery-sidebar .sidebar-content h3 {
+            font-size: 20px;
+            font-weight: 500;
+            margin-bottom: 12px;
+            color: white;
+        }
+
+        .gallery-sidebar .sidebar-content p {
+            font-size: 14px;
+            line-height: 1.5;
+            opacity: 0.7;
+            margin-bottom: 32px;
+            color: #d0d0d0;
+        }
+
+        .gallery-sidebar .stats {
+            display: flex;
+            gap: 24px;
+            margin-top: 32px;
+        }
+
+        .gallery-sidebar .stat-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--accent-primary);
+        }
+
+        .gallery-sidebar .stat-label {
+            font-size: 11px;
+            opacity: 0.6;
+            color: #a0a0a0;
+            margin-top: 4px;
+        }
+
+        .gallery-sidebar .theme-toggle-wrapper {
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 16px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+        }
+
+        .gallery-sidebar .theme-label {
+            font-size: 13px;
+            color: white;
+        }
+
+        .gallery-sidebar .theme-toggle {
+            position: relative;
+            width: 60px;
+            height: 30px;
+            border-radius: 30px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 8px;
+        }
+
+        .gallery-sidebar .theme-toggle i {
+            font-size: 14px;
+            color: white;
+            z-index: 1;
+        }
+
+        .gallery-sidebar .theme-toggle .toggle-slider {
+            position: absolute;
+            width: 26px;
+            height: 26px;
+            background: white;
+            border-radius: 50%;
+            left: 2px;
+            transition: transform 0.3s ease;
+        }
+
+        body.dark-theme .gallery-sidebar .theme-toggle .toggle-slider {
+            transform: translateX(30px);
+        }
+
+        .gallery-sidebar .gallery-nav-link {
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .gallery-sidebar .gallery-nav-link:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .gallery-sidebar .reset-nav-link {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .gallery-sidebar .reset-nav-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1001;
+            background: var(--accent-primary);
+            border: none;
+            border-radius: 12px;
+            padding: 12px;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-toggle {
+                display: block;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="app">
-        <aside class="sidebar">
-            <div class="logo">
-                <div class="logo-icon">◈</div>
-                <div class="logo-text">
-                    <span class="logo-title">INTERIOR</span>
-                    <span class="logo-subtitle">SENSE</span>
+    <button class="mobile-menu-toggle" id="mobileMenuToggle">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <div class="gallery-layout">
+        <!-- Сайдбар для галереи -->
+        <aside class="gallery-sidebar" id="gallerySidebar">
+            <div>
+                <div class="logo">
+                    <div class="logo-icon">◈</div>
+                    <div class="logo-text">
+                        <span class="logo-title">INTERIOR</span>
+                        <span class="logo-subtitle">SENSE</span>
+                    </div>
                 </div>
-            </div>
 
-            <div class="sidebar-content">
-                <h3>Галерея стилей</h3>
-                <p>Изучите все направления дизайна интерьера перед прохождением теста</p>
+                <div class="sidebar-content">
+                    <h3>Галерея стилей</h3>
+                    <p>Изучите все направления дизайна интерьера перед прохождением теста</p>
 
-                <div class="stats">
-                    <div class="stat-item">
-                        <span class="stat-value" id="stylesCount">0</span>
-                        <span class="stat-label">стилей</span>
+                    <div class="stats">
+                        <div class="stat-item">
+                            <span class="stat-value" id="stylesCount">0</span>
+                            <span class="stat-label">стилей</span>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="theme-toggle-wrapper">
-                <button class="theme-toggle" id="themeToggle">
-                    <i class="fas fa-sun"></i>
-                    <i class="fas fa-moon"></i>
-                    <span class="toggle-slider"></span>
-                </button>
-                <span class="theme-label">Тема</span>
-            </div>
+            <div>
+                <div class="theme-toggle-wrapper">
+                    <button class="theme-toggle" id="themeToggleGallery">
+                        <i class="fas fa-sun"></i>
+                        <i class="fas fa-moon"></i>
+                        <span class="toggle-slider"></span>
+                    </button>
+                    <span class="theme-label">Тема</span>
+                </div>
 
-            <a href="/" class="reset-btn" style="text-decoration: none; margin-top: auto;">
-                <i class="fas fa-comment"></i>
-                <span>Пройти тест</span>
-            </a>
+                <a href="/" class="gallery-nav-link">
+                    <i class="fas fa-comment"></i>
+                    <span>Пройти тест</span>
+                </a>
+            </div>
         </aside>
 
-        <main class="chat-main">
-            <div class="chat-header">
-                <div class="header-content">
-                    <a href="/" class="back-link">
-                        <i class="fas fa-arrow-left"></i>
-                        <span>Вернуться к тесту</span>
-                    </a>
+        <!-- Основной контент галереи -->
+        <main class="gallery-main">
+            <div class="gallery-container">
+                <div class="gallery-header">
                     <h1>Галерея стилей интерьера</h1>
                     <p>Изучите все направления, чтобы лучше понять свои предпочтения</p>
                 </div>
-                <div class="header-actions">
-                    <button class="menu-toggle" id="menuToggle">
-                        <i class="fas fa-bars"></i>
-                    </button>
-                </div>
-            </div>
 
-            <div class="gallery-container">
                 <div class="filter-bar" id="filterBar">
                     <button class="filter-btn active" data-filter="all">Все стили</button>
                     <button class="filter-btn" data-filter="minimal">Минимализм</button>
@@ -363,7 +589,6 @@
                 </div>
 
                 <div class="styles-grid" id="stylesGrid">
-                    <!-- Карточки будут загружены через JS -->
                     <div style="text-align: center; grid-column: 1/-1; padding: 60px;">
                         <i class="fas fa-spinner fa-spin" style="font-size: 40px; color: var(--accent-primary);"></i>
                         <p style="margin-top: 20px; color: var(--text-secondary);">Загрузка стилей...</p>
@@ -498,25 +723,31 @@
             return div.innerHTML;
         }
 
-        // Тема и мобильное меню
+        // Тема для галереи
         function initTheme() {
             const savedTheme = localStorage.getItem('theme');
             if (savedTheme === 'dark') {
                 document.body.classList.add('dark-theme');
             }
-            document.getElementById('themeToggle').addEventListener('click', () => {
+            document.getElementById('themeToggleGallery').addEventListener('click', () => {
                 document.body.classList.toggle('dark-theme');
                 localStorage.setItem('theme', document.body.classList.contains('dark-theme') ? 'dark' : 'light');
             });
         }
 
+        // Мобильное меню
         function initMobileMenu() {
-            const menuToggle = document.getElementById('menuToggle');
-            const sidebar = document.querySelector('.sidebar');
+            const menuToggle = document.getElementById('mobileMenuToggle');
+            const sidebar = document.getElementById('gallerySidebar');
             if (menuToggle && sidebar) {
-                menuToggle.addEventListener('click', () => sidebar.classList.toggle('open'));
+                menuToggle.addEventListener('click', () => {
+                    sidebar.classList.toggle('open');
+                });
+
                 document.addEventListener('click', (e) => {
-                    if (sidebar.classList.contains('open') && !sidebar.contains(e.target) && !menuToggle.contains(e.target)) {
+                    if (sidebar.classList.contains('open') &&
+                        !sidebar.contains(e.target) &&
+                        !menuToggle.contains(e.target)) {
                         sidebar.classList.remove('open');
                     }
                 });
