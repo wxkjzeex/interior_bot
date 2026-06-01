@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Галерея стилей — Interior Sense</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Дополнительные стили для галереи */
+        .gallery-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        .gallery-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .gallery-header h1 {
+            font-size: 36px;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 12px;
+        }
+
+        .gallery-header p {
+            color: var(--text-secondary);
+            font-size: 16px;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--accent-primary);
+            text-decoration: none;
+            margin-bottom: 24px;
+            transition: gap 0.3s ease;
+        }
+
+        .back-link:hover {
+            gap: 12px;
+        }
+
+        .styles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .style-card {
+            background: var(--bg-secondary);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+        }
+
+        .style-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--accent-primary);
+        }
+
+        .style-image {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            background: var(--bg-tertiary);
+        }
+
+        .style-info {
+            padding: 20px;
+        }
+
+        .style-name {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .style-full-name {
+            font-size: 14px;
+            color: var(--accent-primary);
+            margin-bottom: 12px;
+        }
+
+        .style-description {
+            font-size: 14px;
+            line-height: 1.5;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+
+        .style-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 16px;
+        }
+
+        .style-tag {
+            background: var(--bg-tertiary);
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .expand-btn {
+            width: 100%;
+            padding: 10px;
+            background: var(--bg-tertiary);
+            border: none;
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .expand-btn:hover {
+            background: var(--accent-primary);
+            color: white;
+        }
+
+        /* Модальное окно */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--bg-primary);
+            border-radius: 24px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            animation: modalFadeIn 0.3s ease;
+        }
+
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 20px;
+            font-size: 28px;
+            cursor: pointer;
+            color: var(--text-secondary);
+            transition: color 0.2s ease;
+            z-index: 1;
+        }
+
+        .modal-close:hover {
+            color: var(--accent-primary);
+        }
+
+        .modal-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .modal-info {
+            padding: 24px;
+        }
+
+        .modal-name {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .modal-full-name {
+            font-size: 16px;
+            color: var(--accent-primary);
+            margin-bottom: 16px;
+        }
+
+        .modal-description {
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+
+        .modal-section {
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .modal-section h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
+
+        .modal-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .modal-list li {
+            padding: 6px 0;
+            padding-left: 20px;
+            position: relative;
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .modal-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--accent-primary);
+            font-weight: bold;
+        }
+
+        .filter-bar {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 32px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: var(--text-primary);
+        }
+
+        .filter-btn.active {
+            background: var(--accent-primary);
+            color: white;
+            border-color: var(--accent-primary);
+        }
+
+        .filter-btn:hover:not(.active) {
+            border-color: var(--accent-primary);
+        }
+
+        @media (max-width: 768px) {
+            .styles-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-header h1 {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app">
+        <aside class="sidebar">
+            <div class="logo">
+                <div class="logo-icon">◈</div>
+                <div class="logo-text">
+                    <span class="logo-title">INTERIOR</span>
+                    <span class="logo-subtitle">SENSE</span>
+                </div>
+            </div>
+
+            <div class="sidebar-content">
+                <h3>Галерея стилей</h3>
+                <p>Изучите все направления дизайна интерьера перед прохождением теста</p>
+
+                <div class="stats">
+                    <div class="stat-item">
+                        <span class="stat-value" id="stylesCount">0</span>
+                        <span class="stat-label">стилей</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="theme-toggle-wrapper">
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-sun"></i>
+                    <i class="fas fa-moon"></i>
+                    <span class="toggle-slider"></span>
+                </button>
+                <span class="theme-label">Тема</span>
+            </div>
+
+            <a href="/" class="reset-btn" style="text-decoration: none; margin-top: auto;">
+                <i class="fas fa-comment"></i>
+                <span>Пройти тест</span>
+            </a>
+        </aside>
+
+        <main class="chat-main">
+            <div class="chat-header">
+                <div class="header-content">
+                    <a href="/" class="back-link">
+                        <i class="fas fa-arrow-left"></i>
+                        <span>Вернуться к тесту</span>
+                    </a>
+                    <h1>Галерея стилей интерьера</h1>
+                    <p>Изучите все направления, чтобы лучше понять свои предпочтения</p>
+                </div>
+                <div class="header-actions">
+                    <button class="menu-toggle" id="menuToggle">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="gallery-container">
+                <div class="filter-bar" id="filterBar">
+                    <button class="filter-btn active" data-filter="all">Все стили</button>
+                    <button class="filter-btn" data-filter="minimal">Минимализм</button>
+                    <button class="filter-btn" data-filter="cozy">Уютные</button>
+                    <button class="filter-btn" data-filter="luxury">Роскошные</button>
+                    <button class="filter-btn" data-filter="industrial">Индустриальные</button>
+                </div>
+
+                <div class="styles-grid" id="stylesGrid">
+                    <!-- Карточки будут загружены через JS -->
+                    <div style="text-align: center; grid-column: 1/-1; padding: 60px;">
+                        <i class="fas fa-spinner fa-spin" style="font-size: 40px; color: var(--accent-primary);"></i>
+                        <p style="margin-top: 20px; color: var(--text-secondary);">Загрузка стилей...</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Модальное окно -->
+    <div class="modal" id="styleModal">
+        <div class="modal-content">
+            <div class="modal-close" onclick="closeModal()">&times;</div>
+            <img class="modal-image" id="modalImage" src="" alt="">
+            <div class="modal-info">
+                <div class="modal-name" id="modalName"></div>
+                <div class="modal-full-name" id="modalFullName"></div>
+                <div class="modal-description" id="modalDescription"></div>
+
+                <div class="modal-section">
+                    <h4>🎨 Цветовая палитра</h4>
+                    <div class="tags" id="modalColors"></div>
+                </div>
+
+                <div class="modal-section">
+                    <h4>🪵 Материалы</h4>
+                    <div class="tags" id="modalMaterials"></div>
+                </div>
+
+                <div class="modal-section">
+                    <h4>🛍️ Что купить</h4>
+                    <ul class="modal-list" id="modalShopping"></ul>
+                </div>
+
+                <div class="modal-section">
+                    <h4>⚠️ Чего избегать</h4>
+                    <div class="tags" id="modalAvoid"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Данные стилей из сервера
+        let stylesData = {};
+
+        // Категории для фильтрации
+        const styleCategories = {
+            "japandi": "cozy",
+            "scandi": "cozy",
+            "minimal": "minimal",
+            "loft": "industrial",
+            "artdeco": "luxury",
+            "classic": "luxury",
+            "hitech": "minimal",
+            "midcentury": "cozy",
+            "boho": "cozy"
+        };
+
+        async function loadStyles() {
+            try {
+                const response = await fetch('/api/styles');
+                const data = await response.json();
+                stylesData = data.styles;
+                document.getElementById('stylesCount').textContent = Object.keys(stylesData).length;
+                renderStyles('all');
+            } catch (error) {
+                console.error('Ошибка загрузки стилей:', error);
+                document.getElementById('stylesGrid').innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 60px;"><i class="fas fa-exclamation-triangle" style="font-size: 40px; color: #e74c3c;"></i><p style="margin-top: 20px;">Ошибка загрузки. Обновите страницу.</p></div>';
+            }
+        }
+
+        function renderStyles(filter) {
+            const grid = document.getElementById('stylesGrid');
+            grid.innerHTML = '';
+
+            let filteredStyles = Object.entries(stylesData);
+            if (filter !== 'all') {
+                filteredStyles = filteredStyles.filter(([key]) => styleCategories[key] === filter);
+            }
+
+            if (filteredStyles.length === 0) {
+                grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 60px;"><i class="fas fa-search" style="font-size: 40px; color: var(--text-muted);"></i><p style="margin-top: 20px;">Стилей не найдено</p></div>';
+                return;
+            }
+
+            filteredStyles.forEach(([key, style]) => {
+                const card = document.createElement('div');
+                card.className = 'style-card';
+                card.onclick = () => showModal(key, style);
+                card.innerHTML = `
+                    <img class="style-image" src="${style.image || 'https://placehold.co/600x400'}" alt="${style.name}" onerror="this.src='https://placehold.co/600x400'">
+                    <div class="style-info">
+                        <div class="style-name">${escapeHtml(style.name)}</div>
+                        <div class="style-full-name">${escapeHtml(style.full_name)}</div>
+                        <div class="style-description">${escapeHtml(style.description.substring(0, 100))}...</div>
+                        <div class="style-tags">
+                            ${style.colors.slice(0, 3).map(c => `<span class="style-tag">${escapeHtml(c)}</span>`).join('')}
+                        </div>
+                        <button class="expand-btn" onclick="event.stopPropagation(); showModal('${key}', ${JSON.stringify(style).replace(/"/g, '&quot;')})">
+                            <i class="fas fa-expand-alt"></i>
+                            Подробнее
+                        </button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function showModal(key, style) {
+            const modal = document.getElementById('styleModal');
+            document.getElementById('modalImage').src = style.image || 'https://placehold.co/600x400';
+            document.getElementById('modalName').textContent = style.name;
+            document.getElementById('modalFullName').textContent = style.full_name;
+            document.getElementById('modalDescription').textContent = style.description;
+
+            document.getElementById('modalColors').innerHTML = style.colors.map(c => `<span class="tag">${escapeHtml(c)}</span>`).join('');
+            document.getElementById('modalMaterials').innerHTML = style.materials.map(m => `<span class="tag">${escapeHtml(m)}</span>`).join('');
+            document.getElementById('modalShopping').innerHTML = style.shopping_list.map(item => `<li>${escapeHtml(item)}</li>`).join('');
+            document.getElementById('modalAvoid').innerHTML = style.avoid.map(a => `<span class="tag">${escapeHtml(a)}</span>`).join('');
+
+            modal.classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('styleModal').classList.remove('active');
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Тема и мобильное меню
+        function initTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark-theme');
+            }
+            document.getElementById('themeToggle').addEventListener('click', () => {
+                document.body.classList.toggle('dark-theme');
+                localStorage.setItem('theme', document.body.classList.contains('dark-theme') ? 'dark' : 'light');
+            });
+        }
+
+        function initMobileMenu() {
+            const menuToggle = document.getElementById('menuToggle');
+            const sidebar = document.querySelector('.sidebar');
+            if (menuToggle && sidebar) {
+                menuToggle.addEventListener('click', () => sidebar.classList.toggle('open'));
+                document.addEventListener('click', (e) => {
+                    if (sidebar.classList.contains('open') && !sidebar.contains(e.target) && !menuToggle.contains(e.target)) {
+                        sidebar.classList.remove('open');
+                    }
+                });
+            }
+        }
+
+        function initFilters() {
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    renderStyles(btn.dataset.filter);
+                });
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadStyles();
+            initTheme();
+            initMobileMenu();
+            initFilters();
+
+            // Закрыть модалку по клику вне
+            document.getElementById('styleModal').addEventListener('click', (e) => {
+                if (e.target === document.getElementById('styleModal')) closeModal();
+            });
+
+            // Закрыть по ESC
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') closeModal();
+            });
+        });
+    </script>
+</body>
+</html>

@@ -294,6 +294,15 @@ async def health_check():
     return {"status": "healthy", "questions": len(QUESTIONS), "styles": len(STYLE_DESCRIPTIONS)}
 
 
+@app.get("/styles-gallery", response_class=HTMLResponse)
+async def styles_gallery(request: Request):
+    """Галерея всех стилей интерьера"""
+    return templates.TemplateResponse("styles_gallery.html", {
+        "request": request,
+        "styles": STYLE_DESCRIPTIONS
+    })
+
+
 if __name__ == "__main__":
     import uvicorn
 
