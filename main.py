@@ -108,7 +108,7 @@ STYLE_DESCRIPTIONS = {
             "Бумажный светильник"
         ],
         "avoid": ["Пластик", "Яркие цвета", "Излишний декор"],
-        "image": "https://i.pinimg.com/736x/9d/70/8a/9d708a4d4169684aae7d31226e2b0200.jpg"
+        "image": "https://cdn.nur.kz/images/1120/0926ac4bfe13369e.jpeg"
     },
     "scandi": {
         "name": "Scandi",
@@ -123,7 +123,7 @@ STYLE_DESCRIPTIONS = {
             "Живые растения"
         ],
         "avoid": ["Тёмные тона", "Массивная мебель", "Агрессивные узоры"],
-        "image": "https://i.pinimg.com/736x/bf/49/05/bf49058d62e196486262b5071e49412f.jpg"
+        "image": "https://i.pinimg.com/originals/3b/87/bb/3b87bb1c07885584da54b647dd493c09.png"
     },
     "minimal": {
         "name": "Minimal",
@@ -138,7 +138,7 @@ STYLE_DESCRIPTIONS = {
             "Зеркало в простой раме"
         ],
         "avoid": ["Декор без функции", "Пёстрые обои", "Много текстиля"],
-        "image": "https://i.pinimg.com/736x/1b/db/5a/1bdb5ac59f5a22aac899813c2ffa7ac3.jpg"
+        "image": "https://geometrium-school.ru/wp-content/uploads/2025/08/u4228977262_design_a_living_room_in_a_minimalist_style_focusi_135d1fc5-93ff-4115-8390-a1f1d625766e_2.png"
     },
     "loft": {
         "name": "Loft",
@@ -153,7 +153,7 @@ STYLE_DESCRIPTIONS = {
             "Постеры в чёрных рамках"
         ],
         "avoid": ["Позолота", "Рюши", "Классическая мебель", "Большие окна", "Открытые потолки"],
-        "image": "https://i.pinimg.com/736x/ff/cb/4b/ffcb4b6075771132ca3b5a77f1e35b41.jpg"
+        "image": "https://avatars.mds.yandex.net/i?id=15eedd21dd1531f1edf460904ccf421e_l-12530517-images-thumbs&n=13"
     },
     "artdeco": {
         "name": "Art Deco",
@@ -168,7 +168,7 @@ STYLE_DESCRIPTIONS = {
             "Латунные светильники"
         ],
         "avoid": ["Простота", "Деревенские мотивы", "Бюджетные материалы"],
-        "image": "https://i.pinimg.com/736x/36/ee/5a/36ee5a125dd49ec33e190fdc1487f94a.jpg"
+        "image": "https://geometrium-school.ru/wp-content/uploads/2025/11/u4228977262_httpss_mj_runnn_wgnid9uc_an_elegant_luxurious_liv_c02b5104.png"
     },
     "classic": {
         "name": "Classic",
@@ -213,7 +213,7 @@ STYLE_DESCRIPTIONS = {
             "Деревянный комод на ножках"
         ],
         "avoid": ["Классика", "Хай-тек", "Излишняя роскошь"],
-        "image": "https://i.pinimg.com/736x/66/c9/a3/66c9a3efd204430a880799faa2f3422a.jpg"
+        "image": "https://mir-s3-cdn-cf.behance.net/project_modules/1400/25267057279209.59d0f7b2449db.jpg"
     },
     "boho": {
         "name": "Boho",
@@ -228,7 +228,7 @@ STYLE_DESCRIPTIONS = {
             "Ковры с узорами"
         ],
         "avoid": ["Строгие линии", "Дорогой глянец"],
-        "image": "https://i.pinimg.com/736x/43/9c/52/439c522102ff169368603d46ee7d0393.jpg"
+        "image": "https://avatars.mds.yandex.net/i?id=2d591e47d1ab006b1b7f4df9494fdbf1_l-9624682-images-thumbs&n=13"
     }
 }
 
