@@ -531,7 +531,7 @@ function displayResult(result) {
             </div>
 
             <div class="result-section">
-                <h4>🪵 Материалы</h4>
+                <h4>🛠️ Материалы</h4>
                 <div class="tags">
                     ${main.materials.map(material => `<span class="tag">${escapeHtml(material)}</span>`).join('')}
                 </div>
