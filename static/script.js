@@ -394,6 +394,174 @@ function initToggleQuestions() {
     window.addEventListener('resize', checkVisibility);
 }
 
+// Функция для создания адаптивного изображения в сообщении
+function createAdaptiveImage(imageUrl, caption = '') {
+    const container = document.createElement('div');
+    container.className = 'image-container';
+
+    const img = document.createElement('img');
+    img.src = imageUrl;
+    img.alt = caption || 'Пример интерьера';
+    img.className = 'message-image';
+    img.loading = 'lazy';  // Ленивая загрузка
+
+    // Добавляем возможность открыть изображение в полном размере
+    img.addEventListener('click', (e) => {
+        e.stopPropagation();
+        openImageModal(imageUrl);
+    });
+
+    container.appendChild(img);
+
+    if (caption) {
+        const captionDiv = document.createElement('div');
+        captionDiv.className = 'image-caption';
+        captionDiv.textContent = caption;
+        container.appendChild(captionDiv);
+    }
+
+    return container;
+}
+
+// Функция для открытия модального окна с изображением
+function openImageModal(imageUrl) {
+    let modal = document.querySelector('.image-modal');
+
+    if (!modal) {
+        modal = document.createElement('div');
+        modal.className = 'image-modal';
+        modal.innerHTML = `
+            <button class="image-modal-close">&times;</button>
+            <img src="" alt="Увеличенное изображение">
+        `;
+        document.body.appendChild(modal);
+
+        // Закрытие по клику
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal || e.target.classList.contains('image-modal-close')) {
+                modal.classList.remove('active');
+            }
+        });
+
+        // Закрытие по ESC
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('active')) {
+                modal.classList.remove('active');
+            }
+        });
+    }
+
+    const modalImg = modal.querySelector('img');
+    modalImg.src = imageUrl;
+    modal.classList.add('active');
+}
+
+// Обновляем функцию addBotMessage для поддержки изображений
+function addBotMessage(text, withOptions = false, imageUrl = null, imageCaption = null) {
+    const messagesContainer = document.getElementById('chatMessages');
+    const messageDiv = document.createElement('div');
+    messageDiv.className = 'message bot';
+
+    let contentHtml = `<div class="message-avatar"><i class="fas fa-robot"></i></div>
+        <div class="message-content">
+            <div class="message-text">${formatMessageText(text)}</div>`;
+
+    // Добавляем изображение, если оно есть
+    if (imageUrl) {
+        contentHtml += `<div class="image-container">
+            <img src="${imageUrl}" alt="${imageCaption || 'Пример интерьера'}" class="message-image" loading="lazy">
+            ${imageCaption ? `<div class="image-caption">${imageCaption}</div>` : ''}
+        </div>`;
+    }
+
+    contentHtml += `</div>`;
+    messageDiv.innerHTML = contentHtml;
+    messagesContainer.appendChild(messageDiv);
+
+    // Добавляем обработчик клика для изображения после рендеринга
+    if (imageUrl) {
+        const img = messageDiv.querySelector('.message-image');
+        if (img) {
+            img.addEventListener('click', () => openImageModal(imageUrl));
+        }
+    }
+
+    scrollToBottom();
+
+    if (withOptions && currentQuestionIndex < questions.length) {
+        showOptions(questions[currentQuestionIndex].answers);
+    }
+}
+
+// Обновляем функцию displayResult для адаптивных изображений
+function displayResult(result) {
+    const main = result.main_style;
+    const secondary = result.secondary_style;
+
+    let resultHTML = `
+        <div class="result-card">
+            ${main.image ? `<div class="image-container" style="margin-bottom: 20px;">
+                <img src="${main.image}" alt="${main.name}" class="message-image" loading="lazy" style="width: 100%;">
+                <div class="image-caption">${main.full_name}</div>
+            </div>` : ''}
+            <div class="result-header">
+                <div class="result-badge">Ваш стиль</div>
+                <div class="result-confidence">${result.confidence}% соответствие</div>
+            </div>
+            <div class="result-style-name">${escapeHtml(main.name)}</div>
+            <div class="result-style-full">${escapeHtml(main.full_name)}</div>
+            <div class="result-description">${escapeHtml(main.description)}</div>
+    `;
+
+    if (secondary) {
+        resultHTML += `
+            <div class="result-section">
+                <h4>✨ С нотками ${escapeHtml(secondary.name)}</h4>
+                <div class="result-description" style="font-size: 14px;">${escapeHtml(secondary.description)}</div>
+            </div>
+        `;
+    }
+
+    resultHTML += `
+            <div class="result-section">
+                <h4>🎨 Цветовая палитра</h4>
+                <div class="tags">
+                    ${main.colors.map(color => `<span class="tag">${escapeHtml(color)}</span>`).join('')}
+                </div>
+            </div>
+
+            <div class="result-section">
+                <h4>🪵 Материалы</h4>
+                <div class="tags">
+                    ${main.materials.map(material => `<span class="tag">${escapeHtml(material)}</span>`).join('')}
+                </div>
+            </div>
+
+            <div class="result-section">
+                <h4>🛍️ Что купить в первую очередь</h4>
+                <ul class="shopping-list">
+                    ${main.shopping_list.map(item => `<li>${escapeHtml(item)}</li>`).join('')}
+                </ul>
+            </div>
+
+            <div class="result-section">
+                <h4>⚠️ Чего избегать</h4>
+                <div class="tags">
+                    ${main.avoid.map(item => `<span class="tag">${escapeHtml(item)}</span>`).join('')}
+                </div>
+            </div>
+        </div>
+    `;
+
+    addBotMessage(resultHTML, false);
+
+    // Добавляем обработчики для изображений в результате
+    const resultImages = document.querySelectorAll('.result-card .message-image');
+    resultImages.forEach(img => {
+        img.addEventListener('click', () => openImageModal(img.src));
+    });
+}
+
 // Инициализация
 document.addEventListener('DOMContentLoaded', () => {
     loadQuestions();

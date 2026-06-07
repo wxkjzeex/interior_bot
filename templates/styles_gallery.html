@@ -282,6 +282,32 @@
             background: var(--bg-tertiary);
         }
 
+        .style-card-image-wrapper {
+            position: relative;
+            overflow: hidden;
+            height: 220px;
+        }
+
+        .style-card-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .style-card:hover .style-card-image {
+            transform: scale(1.05);
+        }
+
+        .image-error {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: var(--text-muted);
+        }
+
         .style-info {
             padding: 20px;
         }
@@ -702,8 +728,14 @@
                 const card = document.createElement('div');
                 card.className = 'style-card';
                 card.onclick = () => showModal(key, style);
+
+                // Обработка загрузки изображения
+                const imgSrc = style.image || 'https://placehold.co/600x400/e0e0e0/999?text=Нет+изображения';
+
                 card.innerHTML = `
-                    <img class="style-image" src="${style.image || 'https://placehold.co/600x400'}" alt="${style.name}" onerror="this.src='https://placehold.co/600x400'">
+                    <div class="style-card-image-wrapper">
+                        <img class="style-card-image" src="${imgSrc}" alt="${style.name}" loading="lazy" onerror="this.src='https://placehold.co/600x400/e0e0e0/999?text=Изображение+не+доступно'">
+                    </div>
                     <div class="style-info">
                         <div class="style-name">${escapeHtml(style.name)}</div>
                         <div class="style-full-name">${escapeHtml(style.full_name)}</div>
@@ -721,9 +753,18 @@
             });
         }
 
+        // Обновляем функцию showModal для адаптивных изображений
         function showModal(key, style) {
             const modal = document.getElementById('styleModal');
-            document.getElementById('modalImage').src = style.image || 'https://placehold.co/600x400';
+            const modalImage = document.getElementById('modalImage');
+            const imgSrc = style.image || 'https://placehold.co/600x400/e0e0e0/999?text=Нет+изображения';
+
+            modalImage.src = imgSrc;
+            modalImage.alt = style.name;
+            modalImage.onerror = () => {
+                modalImage.src = 'https://placehold.co/600x400/e0e0e0/999?text=Изображение+не+доступно';
+            };
+
             document.getElementById('modalName').textContent = style.name;
             document.getElementById('modalFullName').textContent = style.full_name;
             document.getElementById('modalDescription').textContent = style.description;
